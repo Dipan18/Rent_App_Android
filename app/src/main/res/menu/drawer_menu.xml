@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/categories"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/all_tools"
+            android:icon="@drawable/ic_handyman_tools"
+            android:orderInCategory="0"
+            android:title="All Tools" />
+    </group>
+
+    <group
+        android:id="@+id/profile"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_edit_profile"
+            android:icon="@drawable/ic_profile"
+            android:orderInCategory="1"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_ads"
+            android:icon="@drawable/ic_ads"
+            android:orderInCategory="1"
+            android:title="My Ads" />
+        <item
+            android:icon="@drawable/ic_rent_requests"
+            android:orderInCategory="1"
+            android:title="Rent Requests" />
+        <item
+            android:icon="@drawable/ic_rented_items"
+            android:orderInCategory="1"
+            android:title="Rented Items" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:orderInCategory="1"
+            android:title="Logout" />
+    </group>
+</menu>

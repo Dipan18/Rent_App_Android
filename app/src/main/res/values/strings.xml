@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Rent_app</string>
+    <string name="loginLink">Already have an account?\nLogin Here.</string>
+    <string name="loginHeader">Login</string>
+    <string name="signupLink">Don\'t have an account?\nCreate Here.</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
