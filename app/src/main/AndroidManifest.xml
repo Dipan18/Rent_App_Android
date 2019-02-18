@@ -14,8 +14,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.UserAdsActivity"></activity>
-        <activity android:name=".Activities.ProfileActivity"></activity>
+        <activity android:name=".Activities.ProductListActivity"></activity>
+        <activity android:name=".Activities.UserAdsActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.BaseNavigationActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>

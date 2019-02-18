@@ -18,6 +18,7 @@ public class Product {
     private String email;
     private String phone_no;
     private User user;
+    private DefaultResponse status;
 
     public int getProId() {
         return pro_id;
@@ -84,4 +85,8 @@ public class Product {
     }
 
     public User getUser() { return user; }
+
+    public DefaultResponse getStatus() {
+        return status;
+    }
 }

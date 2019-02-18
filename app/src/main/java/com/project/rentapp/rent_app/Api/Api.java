@@ -61,4 +61,7 @@ public interface Api {
 
     @GET("remove_ad.php")
     Call<DefaultResponse> removeAd(@Query("id") int id);
+
+    @GET("get_products.php")
+    Call<List<Product>> getProducts(@Query("page") int page);
 }

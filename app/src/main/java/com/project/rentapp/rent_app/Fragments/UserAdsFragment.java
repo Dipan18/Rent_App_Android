@@ -10,23 +10,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Api.RetrofitClient;
 import com.project.rentapp.rent_app.Models.DefaultResponse;
 import com.project.rentapp.rent_app.Models.Product;
-import com.project.rentapp.rent_app.Models.User;
 import com.project.rentapp.rent_app.R;
 import com.project.rentapp.rent_app.RecyclerViews.UserAdsAdapter;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,7 +62,7 @@ public class UserAdsFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -128,7 +123,7 @@ public class UserAdsFragment extends Fragment {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
                     return;
                 }
 

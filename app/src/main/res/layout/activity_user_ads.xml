@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.UserAdsActivity"
-    android:paddingTop="?attr/actionBarSize">
+    tools:context=".Activities.UserAdsActivity">
 
     <FrameLayout
-    android:id="@+id/user_ads_fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:id="@+id/user_ads_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/user_ads_recycler_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#EEEEEE"-->
-        <!--android:padding="4dp"-->
-        <!--android:scrollbars="vertical" />-->
+    <!--android:id="@+id/user_ads_recycler_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#EEEEEE"-->
+    <!--android:padding="4dp"-->
+    <!--android:scrollbars="vertical" />-->
 
 </android.support.constraint.ConstraintLayout>

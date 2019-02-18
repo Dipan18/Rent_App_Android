@@ -25,11 +25,40 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.UserAdsV
 
     public interface OnItemClickListener {
         void onCardClick(int pro_id);
+
         void onRemoveClick(int pro_id);
     }
 
     public void setOnCardClickListener(OnItemClickListener listener) {
         mListener = listener;
+    }
+
+    public UserAdsAdapter(List<Product> productList) {
+        mProductList = productList;
+    }
+
+    @NonNull
+    @Override
+    public UserAdsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_ads_card, viewGroup, false);
+        UserAdsViewHolder userAdsViewHolder = new UserAdsViewHolder(view, mListener);
+        return userAdsViewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull UserAdsViewHolder userAdsViewHolder, int i) {
+        Product currentItem = mProductList.get(i);
+        String[] currentImgPath = currentItem.getImages();
+
+        userAdsViewHolder.product_id = currentItem.getProId();
+        userAdsViewHolder.userAdsCardTitle.setText(currentItem.getProTitle());
+        userAdsViewHolder.userAdsCardDate.setText(currentItem.getCreatedAt());
+        Picasso.get().load(currentImgPath[0]).into(userAdsViewHolder.userAdsCardImg);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mProductList.size();
     }
 
     public static class UserAdsViewHolder extends RecyclerView.ViewHolder {
@@ -67,33 +96,5 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.UserAdsV
                 }
             });
         }
-    }
-
-    public UserAdsAdapter(List<Product> productList) {
-        mProductList = productList;
-    }
-
-    @NonNull
-    @Override
-    public UserAdsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_ads_card, viewGroup, false);
-        UserAdsViewHolder userAdsViewHolder = new UserAdsViewHolder(view, mListener);
-        return userAdsViewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull UserAdsViewHolder userAdsViewHolder, int i) {
-        Product currentItem = mProductList.get(i);
-        String[] currentImgPath = currentItem.getImages();
-
-        userAdsViewHolder.product_id = currentItem.getProId();
-        userAdsViewHolder.userAdsCardTitle.setText(currentItem.getProTitle());
-        userAdsViewHolder.userAdsCardDate.setText(currentItem.getCreatedAt());
-        Picasso.get().load(currentImgPath[0]).into(userAdsViewHolder.userAdsCardImg);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mProductList.size();
     }
 }

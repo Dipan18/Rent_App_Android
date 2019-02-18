@@ -58,6 +58,7 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.all_tools:
+                startActivity(new Intent(this, ProductListActivity.class));
                 break;
 
             case R.id.nav_logout:
