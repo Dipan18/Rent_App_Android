@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Api.RetrofitClient;
-import com.project.rentapp.rent_app.Fragments.EditProfileFragment;
-import com.project.rentapp.rent_app.Fragments.ProfileFragment;
+import com.project.rentapp.rent_app.Fragments.ProductListFragment;
 import com.project.rentapp.rent_app.Models.Category;
 import com.project.rentapp.rent_app.R;
 
@@ -31,6 +30,7 @@ import retrofit2.Response;
 public class BaseNavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected DrawerLayout drawer;
+    private int numberOfCategories = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,34 +53,72 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
         showProfileMenu();
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.search_menu, menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                ProductListFragment productListFragment = new ProductListFragment();
+//                Bundle args = new Bundle();
+//                args.putString("query", s);
+//                productListFragment.setArguments(args);
+//
+//                getSupportFragmentManager().beginTransaction().add(R.id.product_list_fragment_container,
+//                         productListFragment).commit();
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.all_tools:
-                startActivity(new Intent(this, ProductListActivity.class));
-                break;
-
-            case R.id.nav_logout:
-                logout();
-                break;
-
-            case R.id.nav_edit_profile:
-                Intent intent = new Intent(this, ProfileActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_ads:
-                Intent userAdsIntent = new Intent(this, UserAdsActivity.class);
-                userAdsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(userAdsIntent);
-                break;
+        if (menuItem.getItemId() == R.id.all_tools) {
+            startActivity(new Intent(this, ProductListActivity.class));
         }
+
+        else if (menuItem.getItemId() >= 1 && menuItem.getItemId() <= numberOfCategories) {
+            ProductListFragment productListFragment = new ProductListFragment();
+            Bundle args = new Bundle();
+            args.putInt("cat_id", menuItem.getItemId());
+            args.putString("cat_name", (String) menuItem.getTitle());
+            productListFragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.product_list_fragment_container
+                    , productListFragment).commit();
+        }
+
+        else if (menuItem.getItemId() == R.id.nav_logout) {
+            logout();
+        }
+
+        else if (menuItem.getItemId() == R.id.nav_edit_profile) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        }
+
+        else if (menuItem.getItemId() == R.id.nav_ads) {
+            Intent userAdsIntent = new Intent(this, UserAdsActivity.class);
+            userAdsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(userAdsIntent);
+        }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -120,6 +158,7 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
                 }
 
                 final List<Category> categories = response.body();
+                numberOfCategories = categories.size();
                 addCategoriesToNav(categories);
             }
 
@@ -148,7 +187,7 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
 
         editor.clear();
         if (editor.commit()) {
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, ProductListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

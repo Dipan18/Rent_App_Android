@@ -14,11 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Api.RetrofitClient;
-import com.project.rentapp.rent_app.Models.DefaultResponse;
 import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.R;
 import com.project.rentapp.rent_app.RecyclerViews.ProductListAdapter;
-import com.project.rentapp.rent_app.RecyclerViews.UserAdsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,7 @@ import retrofit2.Response;
 public class ProductListFragment extends Fragment {
     private int page = 0;
     private boolean noMoreProducts = false;
+    private int cat_id = 0;
 
     private RecyclerView mRecyclerView;
     private ProductListAdapter mAdapter;
@@ -46,9 +45,8 @@ public class ProductListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("");
-
         View view = inflater.inflate(R.layout.fragment_product_list, container, false);
+        getActivity().setTitle("All Tools");
 
         progressBar = view.findViewById(R.id.product_list_progress_bar);
         mRecyclerView = view.findViewById(R.id.product_list_recycler_view);
@@ -57,7 +55,17 @@ public class ProductListFragment extends Fragment {
         mAdapter = new ProductListAdapter(new ArrayList<Product>());
         mRecyclerView.setAdapter(mAdapter);
 
-        getProducts();
+        if (getArguments() != null) {
+            cat_id = getArguments().getInt("cat_id");
+        }
+
+        if (cat_id > 0) {
+            getCategorizedProducts(cat_id);
+            getActivity().setTitle(getArguments().getString("cat_name"));
+        } else {
+            getProducts();
+        }
+
         setOnCardListener();
         initOnScrollListener();
 
@@ -87,12 +95,43 @@ public class ProductListFragment extends Fragment {
                 List<Product> productList = response.body();
 
                 loadProducts(productList);
-
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getCategorizedProducts(int cat_id) {
+        page++;
+
+        Call call = RetrofitClient.getmInstance().getApi().getCategorizedProducts(cat_id, page);
+
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (response.body().isEmpty()) {
+                    Toast.makeText(getActivity(), "No Products Found!", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    noMoreProducts = true;
+                    return;
+                }
+
+                List<Product> productList = response.body();
+
+                loadProducts(productList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -113,7 +152,7 @@ public class ProductListFragment extends Fragment {
                 productDetailsFragment.setArguments(args);
 
                 getFragmentManager().beginTransaction().add(R.id.product_list_fragment_container
-                , productDetailsFragment).addToBackStack("product_list").commit();
+                        , productDetailsFragment).addToBackStack("product_list").commit();
             }
         });
     }
@@ -141,7 +180,11 @@ public class ProductListFragment extends Fragment {
                     isScrolling = false;
                     progressBar.setVisibility(View.VISIBLE);
 
-                    getProducts();
+                    if (cat_id > 0) {
+                        getCategorizedProducts(cat_id);
+                    } else {
+                        getProducts();
+                    }
                 }
             }
         });

@@ -47,7 +47,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.edit_profile_btn:
                 getFragmentManager().beginTransaction().replace(R.id.profile_fragment_container,
-                        new EditProfileFragment()).addToBackStack("profile").commit();
+                        new EditProfileFragment(), "editProfileFragment")
+                        .addToBackStack("editProfileFragment").commit();
                 break;
         }
     }

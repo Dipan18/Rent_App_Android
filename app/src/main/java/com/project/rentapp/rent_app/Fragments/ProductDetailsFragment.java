@@ -1,10 +1,16 @@
 package com.project.rentapp.rent_app.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.rentapp.rent_app.Activities.BaseNavigationActivity;
 import com.project.rentapp.rent_app.Api.RetrofitClient;
 import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.Models.User;
@@ -41,12 +48,10 @@ public class ProductDetailsFragment extends Fragment {
     int currentImageIndex = 0;
     int imagesCount;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_details, container, false);
-        getActivity().setTitle("");
 
         productImages = view.findViewById(R.id.product_details_images);
         leftArrow = view.findViewById(R.id.product_details_left_arrow);
@@ -101,7 +106,7 @@ public class ProductDetailsFragment extends Fragment {
         String pincode = "Pincode: " + String.valueOf(product.getProPincode());
         String category = "Category: " + product.getCatName();
         String address = "Address: " + product.getProAddress();
-        String name = "Name: " + userInfo.getFirstName() + userInfo.getLastName();
+        String name = "Name: " + userInfo.getFirstName() + ' ' + userInfo.getLastName();
         String email = "Email: " + userInfo.getEmail();
         String phone_no = "Phone: " + userInfo.getPhoneNo();
 

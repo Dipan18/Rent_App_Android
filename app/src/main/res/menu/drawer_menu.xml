@@ -5,7 +5,7 @@
 
     <group
         android:id="@+id/categories"
-        android:checkableBehavior="single">
+        android:checkableBehavior="none">
         <item
             android:id="@+id/all_tools"
             android:icon="@drawable/ic_handyman_tools"
@@ -15,7 +15,7 @@
 
     <group
         android:id="@+id/profile"
-        android:checkableBehavior="single"
+        android:checkableBehavior="none"
         android:visible="false">
         <item
             android:id="@+id/nav_edit_profile"

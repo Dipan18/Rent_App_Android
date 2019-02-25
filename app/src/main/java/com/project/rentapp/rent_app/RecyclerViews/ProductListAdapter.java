@@ -62,6 +62,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
+    public void clear() {
+        mProductList.clear();
+        notifyDataSetChanged();
+    }
+
     public static class ProductListViewHolder extends RecyclerView.ViewHolder {
         public ImageView productListCardImg;
         public TextView productListCardTitle;

@@ -64,4 +64,11 @@ public interface Api {
 
     @GET("get_products.php")
     Call<List<Product>> getProducts(@Query("page") int page);
+
+    @GET("products_by_category.php")
+    Call<List<Product>> getCategorizedProducts(@Query("category_id") int cat_id, @Query("page") int page);
+
+    @GET("search.php")
+    Call<List<Product>> getSearchResults(@Query("query") String query);
+
 }

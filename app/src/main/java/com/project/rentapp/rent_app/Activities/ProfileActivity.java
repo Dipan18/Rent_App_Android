@@ -2,7 +2,10 @@ package com.project.rentapp.rent_app.Activities;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -20,6 +23,15 @@ public class ProfileActivity extends BaseNavigationActivity {
         drawer.addView(contentView, 0);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.profile_fragment_container,
-                        new ProfileFragment()).commit();
+                        new ProfileFragment(), "profileFragment").commit();
     }
+
+    @Override
+    public void onResume() {
+        if (getSupportFragmentManager().findFragmentByTag("editProfileFragment") != null) {
+            getSupportFragmentManager().popBackStack("editProfileFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+        super.onResume();
+    }
+
 }

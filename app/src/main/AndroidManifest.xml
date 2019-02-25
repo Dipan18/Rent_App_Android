@@ -14,17 +14,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.ProductListActivity"></activity>
-        <activity android:name=".Activities.UserAdsActivity" />
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.BaseNavigationActivity" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.ProductListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.UserAdsActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.BaseNavigationActivity" />
+        <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.LoginActivity" />
     </application>
 

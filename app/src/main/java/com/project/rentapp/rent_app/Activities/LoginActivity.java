@@ -166,7 +166,7 @@ public class LoginActivity extends BaseNavigationActivity implements View.OnClic
         if (result) {
             Toast.makeText(this, "Saved SharedPreferences", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, ProductListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(intent);

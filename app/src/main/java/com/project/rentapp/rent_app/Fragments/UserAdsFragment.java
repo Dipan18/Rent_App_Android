@@ -54,7 +54,9 @@ public class UserAdsFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", -1);
 
-        if (id == -1) { return; }
+        if (id == -1) {
+            return;
+        }
 
         Call call = RetrofitClient.getmInstance().getApi().getUserAds(id);
 
@@ -90,8 +92,8 @@ public class UserAdsFragment extends Fragment {
                 args.putInt("pro_id", pro_id);
                 productDetailsFragment.setArguments(args);
 
-                getFragmentManager().beginTransaction().replace(R.id.user_ads_fragment_container
-                , productDetailsFragment).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().add(R.id.user_ads_fragment_container
+                        , productDetailsFragment, "productDetails").addToBackStack("productDetails").commit();
             }
 
             @Override
@@ -137,7 +139,6 @@ public class UserAdsFragment extends Fragment {
                     fragmentTransaction.attach(userAdsList);
                     fragmentTransaction.commit();
                 }
-
             }
 
             @Override
