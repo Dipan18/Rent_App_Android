@@ -13,12 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Api.RetrofitClient;
 import com.project.rentapp.rent_app.Fragments.ProductListFragment;
 import com.project.rentapp.rent_app.Models.Category;
+import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.R;
 
 import java.util.List;
@@ -53,36 +55,6 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
         showProfileMenu();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.search_menu, menu);
-//
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                ProductListFragment productListFragment = new ProductListFragment();
-//                Bundle args = new Bundle();
-//                args.putString("query", s);
-//                productListFragment.setArguments(args);
-//
-//                getSupportFragmentManager().beginTransaction().add(R.id.product_list_fragment_container,
-//                         productListFragment).commit();
-//
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.all_tools) {
@@ -90,14 +62,11 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
         }
 
         else if (menuItem.getItemId() >= 1 && menuItem.getItemId() <= numberOfCategories) {
-            ProductListFragment productListFragment = new ProductListFragment();
-            Bundle args = new Bundle();
-            args.putInt("cat_id", menuItem.getItemId());
-            args.putString("cat_name", (String) menuItem.getTitle());
-            productListFragment.setArguments(args);
+            Intent intent = new Intent(this, ProductListActivity.class);
+            intent.putExtra("cat_id", menuItem.getItemId());
+            intent.putExtra("cat_name", menuItem.getTitle());
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.product_list_fragment_container
-                    , productListFragment).commit();
+            startActivity(intent);
         }
 
         else if (menuItem.getItemId() == R.id.nav_logout) {
@@ -202,6 +171,7 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
         TextView usernameHeader = headerView.findViewById(R.id.nav_header_username);
         TextView loginHeader = headerView.findViewById(R.id.nav_header_login);
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        ImageView submitAd = headerView.findViewById(R.id.submit_ad_btn_nav);
 
         if (isUserLoggedIn()) {
             Menu profileMenu = navView.getMenu();
@@ -210,12 +180,21 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
             loginHeader.setVisibility(View.GONE);
             usernameHeader.setVisibility(View.VISIBLE);
             usernameHeader.setText(username);
+            submitAd.setVisibility(View.VISIBLE);
+            submitAd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawer.closeDrawer(GravityCompat.START);
+                    startActivity(new Intent(BaseNavigationActivity.this, SubmitAdActivity.class));
+                }
+            });
         } else {
             usernameHeader.setVisibility(View.GONE);
             loginHeader.setVisibility(View.VISIBLE);
 
             loginHeader.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    drawer.closeDrawer(GravityCompat.START);
                     startActivity(new Intent(BaseNavigationActivity.this, LoginActivity.class));
                 }
             });

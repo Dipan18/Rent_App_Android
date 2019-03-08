@@ -4,6 +4,7 @@
     package="com.project.rentapp.rent_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.SubmitAdActivity"></activity>
+        <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.ProductListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

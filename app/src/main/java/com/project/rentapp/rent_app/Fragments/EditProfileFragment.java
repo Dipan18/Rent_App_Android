@@ -7,12 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.rentapp.rent_app.Activities.BaseNavigationActivity;
 import com.project.rentapp.rent_app.Activities.ProfileActivity;
 import com.project.rentapp.rent_app.Api.RetrofitClient;
 import com.project.rentapp.rent_app.Models.DefaultResponse;
@@ -40,7 +43,6 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         editTextLastName = view.findViewById(R.id.et_last_name_edit_profile);
         editTextPincode = view.findViewById(R.id.et_pincode_edit_profile);
         editTextAddress = view.findViewById(R.id.et_address_edit_profile);
-
         return view;
     }
 
@@ -118,7 +120,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                 Toast.makeText(getActivity(), res.getMessage(), Toast.LENGTH_LONG).show();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                ((ProfileActivity)getActivity()).logout();
+                ((ProfileActivity) getActivity()).logout();
             }
 
             @Override

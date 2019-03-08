@@ -8,13 +8,16 @@ import com.project.rentapp.rent_app.Models.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -26,7 +29,7 @@ public interface Api {
             @Field("last_name") String lastName,
             @Field("email") String email,
             @Field("phone_no") String phoneNumber,
-            @Field("password")  String password
+            @Field("password") String password
 
     );
 
@@ -71,4 +74,17 @@ public interface Api {
     @GET("search.php")
     Call<List<Product>> getSearchResults(@Query("query") String query);
 
+    @Multipart
+    @POST("submit_ad.php")
+    Call<DefaultResponse> submitAd(
+            @Part("user_id") int userId,
+            @Part("pro_title") String proTitle,
+            @Part("cat_id") int catId,
+            @Part("pro_desc") String proDesc,
+            @Part("pro_price") int proPrice,
+            @Part("rent_period") int rentPeriod,
+            @Part MultipartBody.Part[] productImages,
+            @Part("pincode") int pincode,
+            @Part("address") String address
+    );
 }

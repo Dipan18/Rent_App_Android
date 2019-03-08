@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Fragments.ProductListFragment;
 import com.project.rentapp.rent_app.R;
@@ -16,7 +17,6 @@ import com.project.rentapp.rent_app.R;
 import java.io.Serializable;
 
 public class ProductListActivity extends BaseNavigationActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +25,18 @@ public class ProductListActivity extends BaseNavigationActivity {
         View contentView = inflater.inflate(R.layout.activity_product_list, null, false);
         drawer.addView(contentView, 0);
 
+        Intent intent = getIntent();
+        int cat_id = intent.getIntExtra("cat_id", 0);
+        String cat_name = intent.getStringExtra("cat_name");
+
+        ProductListFragment productListFragment = new ProductListFragment();
+        Bundle args = new Bundle();
+        args.putInt("cat_id", cat_id);
+        args.putString("cat_name", cat_name);
+        productListFragment.setArguments(args);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.product_list_fragment_container,
-                new ProductListFragment()).commit();
+                productListFragment).commit();
     }
 
     @Override
@@ -53,4 +63,5 @@ public class ProductListActivity extends BaseNavigationActivity {
         });
         return true;
     }
+
 }
