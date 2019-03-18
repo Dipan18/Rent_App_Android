@@ -41,8 +41,7 @@ public class UserAdsAdapter extends RecyclerView.Adapter<UserAdsAdapter.UserAdsV
     @Override
     public UserAdsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_ads_card, viewGroup, false);
-        UserAdsViewHolder userAdsViewHolder = new UserAdsViewHolder(view, mListener);
-        return userAdsViewHolder;
+        return new UserAdsViewHolder(view, mListener);
     }
 
     @Override

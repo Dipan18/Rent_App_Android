@@ -28,10 +28,12 @@
             android:orderInCategory="1"
             android:title="My Ads" />
         <item
+            android:id="@+id/nav_rent_requests"
             android:icon="@drawable/ic_rent_requests"
             android:orderInCategory="1"
             android:title="Rent Requests" />
         <item
+            android:id="@+id/nav_rented_items"
             android:icon="@drawable/ic_rented_items"
             android:orderInCategory="1"
             android:title="Rented Items" />

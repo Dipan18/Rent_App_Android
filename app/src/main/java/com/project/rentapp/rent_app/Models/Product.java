@@ -17,6 +17,9 @@ public class Product {
     private String last_name;
     private String email;
     private String phone_no;
+    private int days_remaining;
+    private String rented_on;
+    private String requested_on;
     private User user;
     private DefaultResponse status;
 
@@ -88,5 +91,17 @@ public class Product {
 
     public DefaultResponse getStatus() {
         return status;
+    }
+
+    public int getDaysRemaining() {
+        return days_remaining;
+    }
+
+    public String getRentedOn() {
+        return rented_on;
+    }
+
+    public String getRequestedOn() {
+        return requested_on;
     }
 }

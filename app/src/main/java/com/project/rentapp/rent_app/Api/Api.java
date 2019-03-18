@@ -5,7 +5,6 @@ import com.project.rentapp.rent_app.Models.DefaultResponse;
 import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.Models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -87,4 +86,7 @@ public interface Api {
             @Part("pincode") int pincode,
             @Part("address") String address
     );
+
+    @GET("rented_products.php")
+    Call<List<Product>> getRentedProductsByUser(@Query("id") int id);
 }

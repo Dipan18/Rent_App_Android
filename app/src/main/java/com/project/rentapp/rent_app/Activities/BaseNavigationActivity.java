@@ -65,7 +65,6 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
             Intent intent = new Intent(this, ProductListActivity.class);
             intent.putExtra("cat_id", menuItem.getItemId());
             intent.putExtra("cat_name", menuItem.getTitle());
-
             startActivity(intent);
         }
 
@@ -83,6 +82,12 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
             Intent userAdsIntent = new Intent(this, UserAdsActivity.class);
             userAdsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(userAdsIntent);
+        }
+
+        else if (menuItem.getItemId() == R.id.nav_rented_items) {
+            Intent rentedItemsIntent = new Intent(this, RentedProductsActivity.class);
+            rentedItemsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(rentedItemsIntent);
         }
 
         drawer.closeDrawer(GravityCompat.START);

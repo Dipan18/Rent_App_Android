@@ -54,9 +54,7 @@ public class UserAdsFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         int id = sharedPreferences.getInt("id", -1);
 
-        if (id == -1) {
-            return;
-        }
+        if (id == -1) { return; }
 
         Call call = RetrofitClient.getmInstance().getApi().getUserAds(id);
 
@@ -69,6 +67,11 @@ public class UserAdsFragment extends Fragment {
                 }
 
                 List<Product> productList = response.body();
+
+                if (productList == null || productList.isEmpty()) {
+                    Toast.makeText(getActivity(), "You Haven't Uploaded Any Ads Yet!", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 mAdapter = new UserAdsAdapter(productList);
                 mRecyclerView.setAdapter(mAdapter);
