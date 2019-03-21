@@ -21,7 +21,7 @@ public class Product {
     private String rented_on;
     private String requested_on;
     private User user;
-    private DefaultResponse status;
+    private String status;
 
     public int getProId() {
         return pro_id;
@@ -89,7 +89,7 @@ public class Product {
 
     public User getUser() { return user; }
 
-    public DefaultResponse getStatus() {
+    public String getStatus() {
         return status;
     }
 

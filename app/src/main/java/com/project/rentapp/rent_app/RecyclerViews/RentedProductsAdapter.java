@@ -32,15 +32,27 @@ public class RentedProductsAdapter extends RecyclerView.Adapter<RentedProductsAd
     public void onBindViewHolder(@NonNull RentedProductsViewHolder rentedProductsViewHolder, int i) {
         Product currentItem = rentedProducts.get(i);
         String[] imagePath = currentItem.getImages();
-        String rentedOn = "Rented On: " + currentItem.getRentedOn();
         String ownerName = "Owner: " + currentItem.getUser().getFirstName() + ' ' + currentItem.getUser().getLastName();
-        String daysRemaining = "Days Remaining: " + String.valueOf(currentItem.getDaysRemaining());
 
         rentedProductsViewHolder.rentedProductsCardTitleTv.setText(currentItem.getProTitle().toUpperCase());
-        rentedProductsViewHolder.rentedProductsCardRentedOnTV.setText(rentedOn);
-        rentedProductsViewHolder.rentedProductsCardOwnerTv.setText(ownerName);
-        rentedProductsViewHolder.rentedProductsCardDaysRemainingTv.setText(daysRemaining);
         Picasso.get().load(imagePath[0]).into(rentedProductsViewHolder.rentedProductsCardImageView);
+        rentedProductsViewHolder.rentedProductsCardOwnerTv.setText(ownerName);
+
+        if (currentItem.getStatus().toLowerCase().equals("pending") ||
+            currentItem.getStatus().toLowerCase().equals("rejected")) {
+
+            String requestedOn = "Requested On: " + currentItem.getRequestedOn();
+            String status = "Status: " + currentItem.getStatus();
+
+            rentedProductsViewHolder.rentedProductsCardRentedOnTV.setText(requestedOn);
+            rentedProductsViewHolder.rentedProductsCardDaysRemainingTv.setText(status);
+        } else {
+            String rentedOn = "Rented On: " + currentItem.getRentedOn();
+            String daysRemaining = "Days Remaining: " + String.valueOf(currentItem.getDaysRemaining());
+
+            rentedProductsViewHolder.rentedProductsCardRentedOnTV.setText(rentedOn);
+            rentedProductsViewHolder.rentedProductsCardDaysRemainingTv.setText(daysRemaining);
+        }
     }
 
     @Override
