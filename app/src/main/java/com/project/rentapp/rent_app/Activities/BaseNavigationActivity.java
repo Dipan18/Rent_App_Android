@@ -90,6 +90,12 @@ public class BaseNavigationActivity extends AppCompatActivity implements Navigat
             startActivity(rentedItemsIntent);
         }
 
+        else if (menuItem.getItemId() == R.id.nav_rent_requests) {
+            Intent rentedItemsIntent = new Intent(this, RentRequestsActivity.class);
+            rentedItemsIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(rentedItemsIntent);
+        }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

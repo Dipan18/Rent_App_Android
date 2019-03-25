@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/rent_requests_card_img"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/rent_requests_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Product Title"
+            android:textColor="@color/primaryText"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_requests_card_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rent_requests_card_requested_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Requested By"
+            android:textColor="@color/primaryText"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_requests_card_img"
+            app:layout_constraintTop_toBottomOf="@+id/rent_requests_card_title" />
+
+        <TextView
+            android:id="@+id/rent_requests_card_requested_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Requested On"
+            android:textColor="@color/primaryText"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_requests_card_img"
+            app:layout_constraintTop_toBottomOf="@+id/rent_requests_card_requested_by" />
+
+        <TextView
+            android:id="@+id/rent_requests_card_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Status"
+            android:textColor="@color/primaryText"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/rent_requests_card_img"
+            app:layout_constraintTop_toBottomOf="@+id/rent_requests_card_requested_on" />
+
+        <TextView
+            android:id="@+id/rent_requests_card_expiry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Expiry Date"
+            android:textColor="@color/primaryText"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/rent_requests_card_img"
+            app:layout_constraintTop_toBottomOf="@+id/rent_requests_card_status" />
+
+        <ImageView
+            android:id="@+id/rent_requests_card_accept_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rent_requests_card_reject_img"
+            app:srcCompat="@drawable/ic_check" />
+
+        <ImageView
+            android:id="@+id/rent_requests_card_reject_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

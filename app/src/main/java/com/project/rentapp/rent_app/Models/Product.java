@@ -20,6 +20,7 @@ public class Product {
     private int days_remaining;
     private String rented_on;
     private String requested_on;
+    private String expiry_date;
     private User user;
     private String status;
 
@@ -104,4 +105,6 @@ public class Product {
     public String getRequestedOn() {
         return requested_on;
     }
+
+    public String getExpiryDate() { return expiry_date; }
 }

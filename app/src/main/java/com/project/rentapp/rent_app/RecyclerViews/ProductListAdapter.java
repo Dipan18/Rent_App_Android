@@ -56,14 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public void addProductsToList(List<Product> products) {
-        for (Product product : products) {
-            mProductList.add(product);
-            notifyDataSetChanged();
-        }
-    }
-
-    public void clear() {
-        mProductList.clear();
+        mProductList.addAll(products);
         notifyDataSetChanged();
     }
 

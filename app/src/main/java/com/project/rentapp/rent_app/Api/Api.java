@@ -89,4 +89,13 @@ public interface Api {
 
     @GET("rented_products.php")
     Call<List<Product>> getRentedProductsByUser(@Query("id") int id);
+
+    @GET("my_requests.php")
+    Call<List<Product>> getRequestsOnMyProducts(@Query("id") int id);
+
+    @GET("accept_rent_request.php")
+    Call<DefaultResponse> acceptRentRequest(@Query("id") int id);
+
+    @GET("reject_rent_request.php")
+    Call<DefaultResponse> rejectRentRequest(@Query("id") int id);
 }

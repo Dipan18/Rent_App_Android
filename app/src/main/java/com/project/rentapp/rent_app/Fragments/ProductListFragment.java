@@ -1,6 +1,5 @@
 package com.project.rentapp.rent_app.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.project.rentapp.rent_app.Activities.ProductListActivity;
 import com.project.rentapp.rent_app.Api.RetrofitClient;
 import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.R;

@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.RentedProductsActivity"></activity>
+        <activity android:name=".Activities.RentRequestsActivity"></activity>
+        <activity android:name=".Activities.RentedProductsActivity" />
         <activity android:name=".Activities.SubmitAdActivity" />
         <activity android:name=".Activities.SearchActivity" />
         <activity android:name=".Activities.ProductListActivity">
