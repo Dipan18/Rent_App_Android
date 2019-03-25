@@ -1,6 +1,8 @@
 package com.project.rentapp.rent_app.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,12 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.rentapp.rent_app.Activities.BaseNavigationActivity;
+import com.project.rentapp.rent_app.Activities.ProductListActivity;
+import com.project.rentapp.rent_app.Activities.RentedProductsActivity;
 import com.project.rentapp.rent_app.Api.RetrofitClient;
+import com.project.rentapp.rent_app.Models.DefaultResponse;
 import com.project.rentapp.rent_app.Models.Product;
 import com.project.rentapp.rent_app.Models.User;
 import com.project.rentapp.rent_app.R;
@@ -43,15 +49,20 @@ public class ProductDetailsFragment extends Fragment {
     private TextView cuCardName;
     private TextView cuCardEmail;
     private TextView cuCardPhone;
+    private Button pdRentItemBtn;
 
     private String images[];
     int currentImageIndex = 0;
     int imagesCount;
+    int loggedInUserId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_details, container, false);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        loggedInUserId = sharedPreferences.getInt("id", -1);
 
         productImages = view.findViewById(R.id.product_details_images);
         leftArrow = view.findViewById(R.id.product_details_left_arrow);
@@ -66,6 +77,7 @@ public class ProductDetailsFragment extends Fragment {
         cuCardName = view.findViewById(R.id.cu_card_name);
         cuCardEmail = view.findViewById(R.id.cu_card_email);
         cuCardPhone = view.findViewById(R.id.cu_card_phone);
+        pdRentItemBtn = view.findViewById(R.id.product_details_rent_item_btn);
 
         int pro_id = getArguments().getInt("pro_id");
         getProductDetails(pro_id);
@@ -95,7 +107,7 @@ public class ProductDetailsFragment extends Fragment {
         });
     }
 
-    private void bindDataToView(Product product) {
+    private void bindDataToView(final Product product) {
         images = product.getImages();
         setImageChangeNavigation();
         User userInfo = product.getUser();
@@ -120,6 +132,45 @@ public class ProductDetailsFragment extends Fragment {
         cuCardName.setText(name);
         cuCardEmail.setText(email);
         cuCardPhone.setText(phone_no);
+
+        pdRentItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rentItem(product.getProId());
+            }
+        });
+
+        if (loggedInUserId == product.getUser().getId()) { pdRentItemBtn.setVisibility(View.GONE); }
+    }
+
+    private void rentItem(int proId) {
+        Call call = RetrofitClient.getmInstance().getApi().rentItem(proId, loggedInUserId);
+
+        call.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DefaultResponse res = response.body();
+
+                Toast.makeText(getActivity(), res.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (!res.isError()) {
+                    Intent intent = new Intent(getActivity(), ProductListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setImageChangeNavigation() {

@@ -98,4 +98,7 @@ public interface Api {
 
     @GET("reject_rent_request.php")
     Call<DefaultResponse> rejectRentRequest(@Query("id") int id);
+
+    @GET("rent_item.php")
+    Call<DefaultResponse> rentItem(@Query("id") int id, @Query("buyer_id") int buyer_id);
 }
